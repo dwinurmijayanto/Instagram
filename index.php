@@ -94,7 +94,7 @@
                                         </svg>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <a id="authorLink" href="#" target="_blank" class="font-semibold hover:underline block truncate">
+                                        <a id="authorLink" href="#" class="font-semibold hover:underline block truncate">
                                             <span id="authorName"></span>
                                         </a>
                                         <p class="text-xs text-gray-200">Instagram</p>
@@ -168,7 +168,7 @@
                         <a
                             id="mainDownloadBtn"
                             href="#"
-                            target="_blank"
+                            target=""
                             class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
                         >
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -344,7 +344,7 @@
                 data.alternative_urls.forEach((alt, index) => {
                     const altDiv = document.createElement('a');
                     altDiv.href = alt.url;
-                    altDiv.target = '_blank';
+                    altDiv.target = '';
                     altDiv.className = 'block p-4 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-purple-50 hover:to-pink-50 rounded-xl transition-all border-2 border-gray-200 hover:border-purple-300 group';
                     
                     const typeInfo = {
