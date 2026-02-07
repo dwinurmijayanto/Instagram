@@ -13,6 +13,18 @@
         .animate-spin {
             animation: spin 1s linear infinite;
         }
+        #authorAvatar {
+            display: block;
+        }
+        #avatarFallback {
+            display: none;
+        }
+        #authorAvatar.error {
+            display: none;
+        }
+        #authorAvatar.error + #avatarFallback {
+            display: block;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
@@ -52,6 +64,7 @@
                     id="submitBtn"
                     class="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
                 >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                     </svg>
                     <span id="btnText">Download</span>
@@ -74,7 +87,12 @@
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                             <div class="absolute bottom-0 left-0 right-0 p-4">
                                 <div class="flex items-center gap-3 text-white">
-                                    <img id="authorAvatar" src="" alt="" class="w-10 h-10 rounded-full border-2 border-white" onerror="this.src='https://via.placeholder.com/40'" />
+                                    <div id="authorAvatarContainer" class="w-10 h-10 rounded-full border-2 border-white overflow-hidden bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
+                                        <img id="authorAvatar" src="" alt="" class="w-full h-full object-cover" />
+                                        <svg id="avatarFallback" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                        </svg>
+                                    </div>
                                     <div class="flex-1 min-w-0">
                                         <a id="authorLink" href="#" target="_blank" class="font-semibold hover:underline block truncate">
                                             <span id="authorName"></span>
@@ -153,6 +171,7 @@
                             target="_blank"
                             class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
                         >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                             </svg>
                             Download Sekarang
@@ -270,6 +289,7 @@
                 submitBtn.disabled = false;
                 submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                 btnText.innerHTML = `
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                     </svg>
                     Download
@@ -293,7 +313,15 @@
             document.getElementById('thumbnail').src = data.thumbnail_url || '';
             document.getElementById('authorName').textContent = data.author_name || 'Unknown';
             document.getElementById('authorLink').href = data.author_url || '#';
-            document.getElementById('authorAvatar').src = data.thumbnail_url || '';
+            
+            const avatarImg = document.getElementById('authorAvatar');
+            avatarImg.src = data.thumbnail_url || '';
+            avatarImg.onerror = function() {
+                this.classList.add('error');
+            };
+            avatarImg.onload = function() {
+                this.classList.remove('error');
+            };
             
             // Title & Description
             document.getElementById('postTitle').textContent = data.title || '';
