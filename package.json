@@ -1,0 +1,19 @@
+{
+  "name": "instagram-downloader-api",
+  "version": "1.0.0",
+  "description": "INSTAGRAM Video Downloader API for Vercel",
+  "main": "api/index.php",
+  "scripts": {
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "instagram",
+    "ig",
+    "downloader",
+    "api",
+    "vercel",
+    "php"
+  ],
+  "author": "VBI1",
+  "license": "MIT"
+}
